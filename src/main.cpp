@@ -6,20 +6,27 @@
 // https://colab.research.google.com/drive/1TaIiMXHg7wuIP13Lcu2kMngkYvkSL9mC?usp=sharing
 #include "esp32_pos_prediction.c"
 
-// 以下、同様にtempモデルのパラメータとpredict_temp関数を追加します
+// option: predict_temp() as well
 
 void setup() {
 	M5.begin();
 
-    // テストデータ
-    float features[3] = {1.0, 479.0, 1129.0};
-    float pos_prediction = predict_pos(features);
-    Serial.print("Predicted Pos: ");
-    Serial.println(pos_prediction);
+	float param[3];
+  // test data
+  param[0] = 1.0; param[1] = 479.0; param[2] = 1129.0; // Ton, v0, v1 -> 0.0mm @ 25[degC]
+  printf("Pos: %f\n", predict_pos(param));
 
-    // float temp_prediction = predict_temp(features);
-    // Serial.print("Predicted Temp: ");
-    // Serial.println(temp_prediction);
+  param[0] = 1.0; param[1] = 473.0; param[2] = 1123.0; // Ton, v0, v1 -> 0.0mm @ 30[degC]
+  printf("Pos: %f\n", predict_pos(param));
+
+  param[0] = 1.0; param[1] = 472.0; param[2] = 1112.0; // Ton, v0, v1 -> 0.0mm @ 35[degC]
+  printf("Pos: %f\n", predict_pos(param));
+
+  param[0] = 1.0; param[1] = 461.0; param[2] = 1098.0; // Ton, v0, v1 -> 0.0mm @ 40[degC]
+  printf("Pos: %f\n", predict_pos(param));
+
+  param[0] = 3.0; param[1] = 375.0; param[2] = 800.0; // Ton, v0, v1 -> 3.0mm @ 25[degC]
+  printf("Pos: %f\n", predict_pos(param));
 }
 
 void loop() {
